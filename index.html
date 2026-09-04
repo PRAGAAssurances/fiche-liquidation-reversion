@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0069)file:///C:/Users/f.quesada/Downloads/calculateur-reversion-rco_8.html -->
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,239 +8,160 @@
 <title>Fiche de liquidation — Réversion</title>
 <style>
   :root{
-    /* Charte PRAGA Assurances */
-    --blue:#233C7D;
-    --blue-dark:#1A2D60;
-    --blue-mid:#2E4E9F;
-    --blue-pale:#EBF0FA;
-    --blue-light:#C6D2EE;
-    --fuchsia:#C42873;
-    --fuchsia-dark:#9E1F5C;
-    --fuchsia-pale:#FAEAF2;
-    --fuchsia-light:#F0C0D8;
-    /* Alias pour compatibilité avec les classes existantes */
-    --navy:var(--blue);
-    --navy-deep:var(--blue-dark);
-    --parchment:#F2F2F7;
-    --card:#FFFFFF;
-    --slate:var(--blue-mid);
-    --slate-soft:var(--blue-pale);
-    --line:#C6D2EE;
-    --ok:#16a34a;
-    --ok-bg:#dcfce7;
-    --alert:#9E1F5C;
-    --alert-bg:var(--fuchsia-pale);
-    --muted:#636366;
-    --ink:#1C1C1E;
-    --gold:var(--fuchsia);
+    --blue:#233C7D; --blue-dark:#1A2D60; --blue-mid:#2E4E9F;
+    --blue-pale:#EBF0FA; --blue-light:#C6D2EE;
+    --fuchsia:#C42873; --fuchsia-dark:#9E1F5C;
+    --fuchsia-pale:#FAEAF2; --fuchsia-light:#F0C0D8;
+    --navy:var(--blue); --navy-deep:var(--blue-dark);
+    --parchment:#F2F2F7; --card:#FFFFFF;
+    --slate:var(--blue-mid); --slate-soft:var(--blue-pale);
+    --line:#C6D2EE; --ok:#16a34a; --ok-bg:#dcfce7;
+    --alert:#9E1F5C; --alert-bg:var(--fuchsia-pale);
+    --muted:#636366; --ink:#1C1C1E; --gold:var(--fuchsia);
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
-    background:var(--parchment);
-    color:var(--ink);
-    font-family:'Raleway',sans-serif;
-    font-size:14px;
-    line-height:1.5;
-    padding:0 0 60px 0;
+    background:var(--parchment); color:var(--ink);
+    font-family:'Raleway',sans-serif; font-size:14px;
+    line-height:1.5; padding:0 0 60px 0;
   }
   .masthead{
-    background:var(--blue);
-    color:#FFFFFF;
-    padding:34px 28px 26px;
-    border-bottom:4px solid var(--fuchsia);
+    background:var(--blue); color:#FFFFFF;
+    padding:34px 28px 26px; border-bottom:4px solid var(--fuchsia);
   }
   .masthead .eyebrow{
-    font-size:11px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:#F0C0D8;
-    margin-bottom:8px;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:#F0C0D8; margin-bottom:8px;
   }
   .masthead h1{
-    font-family:'Raleway',sans-serif;
-    font-weight:700;
-    font-size:26px;
-    margin:0 0 6px 0;
-    letter-spacing:.01em;
+    font-family:'Raleway',sans-serif; font-weight:700;
+    font-size:26px; margin:0 0 6px 0; letter-spacing:.01em;
   }
-  .masthead .sub{
-    color:rgba(255,255,255,0.7);
-    font-size:13px;
-  }
-  .wrap{
-    max-width:920px;
-    margin:0 auto;
-    padding:26px 20px 0;
-  }
+  .masthead .sub{ color:rgba(255,255,255,0.7); font-size:13px; }
+  .wrap{ max-width:920px; margin:0 auto; padding:26px 20px 0; }
   .section{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-left:4px solid var(--slate);
-    border-radius:10px;
-    margin-bottom:22px;
-    overflow:hidden;
+    background:var(--card); border:1px solid var(--line);
+    border-left:4px solid var(--slate); border-radius:10px;
+    margin-bottom:22px; overflow:hidden;
   }
   .section.alt-border{ border-left-color:var(--gold); }
   .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    padding:16px 22px 12px;
-    border-bottom:1px solid var(--line);
+    display:flex; align-items:baseline; gap:12px;
+    padding:16px 22px 12px; border-bottom:1px solid var(--line);
     background:var(--slate-soft);
   }
   .section-num{
-    font-family:'Raleway',sans-serif;
-    font-size:20px;
-    color:var(--slate);
-    font-weight:700;
-    min-width:22px;
+    font-family:'Raleway',sans-serif; font-size:20px;
+    color:var(--slate); font-weight:700; min-width:22px;
   }
   .section-title{
-    font-family:'Raleway',sans-serif;
-    font-size:16px;
-    font-weight:600;
-    color:var(--navy);
+    font-family:'Raleway',sans-serif; font-size:16px;
+    font-weight:600; color:var(--navy);
   }
-  .section-note{
-    padding:10px 22px 0;
-    font-size:12px;
-    color:var(--muted);
-    font-style:italic;
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:0;
-  }
+  .grid{ display:grid; grid-template-columns:1fr; gap:0; }
   .row{
-    display:grid;
-    grid-template-columns: 1.5fr 1fr 1.6fr;
-    gap:14px;
-    align-items:start;
-    padding:12px 22px;
+    display:grid; grid-template-columns: 1.5fr 1fr 1.6fr;
+    gap:14px; align-items:start; padding:12px 22px;
     border-bottom:1px solid #EFEAE0;
   }
   .row:last-child{ border-bottom:none; }
-  .row.compact{ grid-template-columns: 1.5fr 1fr; }
-  .label{
-    font-size:13px;
-    color:var(--ink);
-    padding-top:8px;
-  }
+  .row.compact{ grid-template-columns: 1.5fr 1fr 1.6fr; }
+  .label{ font-size:13px; color:var(--ink); padding-top:8px; }
   .label .req{ color:var(--gold); }
-  .hint{
-    font-size:11.5px;
-    color:var(--muted);
-    padding-top:8px;
-    line-height:1.45;
-  }
+  .hint{ font-size:11.5px; color:var(--muted); padding-top:8px; line-height:1.45; }
+  .hint-neo{ font-size:11.5px; color:var(--blue-mid); padding-top:5px; line-height:1.45; font-style:italic; }
   input[type="date"], input[type="number"], input[type="text"]{
-    width:100%;
-    padding:8px 10px;
-    border:1px solid #C9C2B2;
-    border-radius:3px;
-    background:#FFFDF9;
+    width:100%; padding:8px 10px; border:1px solid #C9C2B2;
+    border-radius:3px; background:#FFFDF9;
     font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
-    font-size:13.5px;
-    color:var(--ink);
+    font-size:13.5px; color:var(--ink);
   }
   input:focus{
-    outline:none;
-    border-color:var(--blue);
+    outline:none; border-color:var(--blue);
     box-shadow:0 0 0 3px rgba(35,60,125,0.12);
   }
   .computed{
-    padding:9px 10px;
-    background:#FBF9F4;
-    border:1px dashed #C9C2B2;
-    border-radius:3px;
+    padding:9px 10px; background:#FBF9F4;
+    border:1px dashed #C9C2B2; border-radius:3px;
     font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
-    font-size:13.5px;
-    color:var(--navy);
+    font-size:13.5px; color:var(--navy);
   }
-  .amount{
-    font-weight:700;
-    color:var(--navy);
-  }
+  .amount{ font-weight:700; color:var(--navy); }
   .status-pill{
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:3px;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.02em;
+    display:inline-block; padding:5px 10px; border-radius:3px;
+    font-size:12px; font-weight:600; letter-spacing:.02em;
   }
   .status-ok{ background:var(--ok-bg); color:var(--ok); }
   .status-alert{ background:var(--alert-bg); color:var(--alert); }
   .status-na{ background:#EFEAE0; color:var(--muted); }
-  .child-block{
-    border-top:2px solid var(--slate-soft);
-  }
+  .child-block{ border-top:2px solid var(--slate-soft); }
   .child-block:first-child{ border-top:none; }
   .child-block-head{
-    padding:10px 22px 0;
-    font-size:12px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    color:var(--slate);
+    padding:10px 22px 0; font-size:12px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.08em; color:var(--slate);
+  }
+  .child-block-head .child-block-sub{
+    font-size:12px; font-weight:400; text-transform:none;
+    letter-spacing:0; color:var(--ink); font-style:normal;
   }
   .synth-box{
-    margin:18px 22px 22px;
-    padding:20px 22px;
-    background:var(--blue);
-    color:#FFFFFF;
-    border-radius:10px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:10px;
+    margin:18px 22px 22px; padding:20px 22px;
+    background:var(--blue); color:#FFFFFF; border-radius:10px;
+    display:flex; justify-content:space-between;
+    align-items:center; flex-wrap:wrap; gap:10px;
   }
   .synth-box .lbl{
-    font-size:12px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.65);
-    margin-bottom:4px;
+    font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+    color:rgba(255,255,255,0.65); margin-bottom:4px;
   }
   .synth-box .val{
-    font-family:'Raleway',sans-serif;
-    font-size:28px;
-    font-weight:700;
-    color:#FFFFFF;
+    font-family:'Raleway',sans-serif; font-size:28px;
+    font-weight:700; color:#FFFFFF;
   }
   .synth-detail{
-    font-size:12px;
-    color:rgba(255,255,255,0.65);
-    max-width:420px;
-    text-align:right;
-    line-height:1.5;
+    font-size:12px; color:rgba(255,255,255,0.65);
+    max-width:420px; text-align:right; line-height:1.5;
   }
   .toggle-bar{
-    padding:10px 22px;
-    font-size:12px;
-    color:var(--slate);
-    cursor:pointer;
-    user-select:none;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    background:var(--slate-soft);
+    padding:10px 22px; font-size:12px; color:var(--slate);
+    cursor:pointer; user-select:none; display:flex;
+    align-items:center; gap:6px; background:var(--slate-soft);
   }
   .toggle-bar:hover{ text-decoration:underline; }
   .bareme-body{ display:none; }
   .bareme-body.open{ display:block; }
   .footer-note{
-    max-width:920px;
-    margin:0 auto;
-    padding:8px 20px 0;
-    font-size:11.5px;
-    color:var(--muted);
-    text-align:center;
+    max-width:920px; margin:0 auto; padding:8px 20px 0;
+    font-size:11.5px; color:var(--muted); text-align:center;
   }
+
+  .actions-bar{
+    max-width:920px; margin:18px auto 0; padding:0 20px;
+    display:flex; gap:12px;
+  }
+  .btn-pdf{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:0 24px; height:46px; border-radius:10px;
+    background:var(--blue); color:#FFFFFF; border:none;
+    font-family:'Raleway',sans-serif; font-size:0.875rem;
+    font-weight:700; letter-spacing:0.04em; cursor:pointer;
+    transition:background 0.15s;
+  }
+  .btn-pdf:hover{ background:var(--blue-dark); }
+  .btn-pdf svg{ width:16px; height:16px; stroke:#FFFFFF; flex-shrink:0; }
+
+  @media print {
+    body{ background:white; padding:0; }
+    .masthead{ padding:20px 28px 16px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .actions-bar{ display:none !important; }
+    .toggle-bar{ display:none !important; }
+    .bareme-body{ display:block !important; }
+    .section{ break-inside:avoid; border-radius:0; }
+    .synth-box{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    @page{ margin:1.2cm; size:A4; }
+  }
+
   @media (max-width:640px){
     .row{ grid-template-columns:1fr; }
     .hint{ display:none; }
@@ -256,7 +176,7 @@
   <div class="wrap" style="padding:0;">
     <div class="eyebrow">Usage interne — Service Gestion</div>
     <h1>Fiche de liquidation — Réversion</h1>
-    <div class="sub">Référentiel 2026 — PASS 2025 · Saisissez le dossier ci-dessous, les statuts, périodes et précomptes se calculent automatiquement.</div>
+    <div class="sub">Référentiel 2026 — PASS 2026 · Saisissez le dossier ci-dessous, les statuts, périodes et cotisations se calculent automatiquement.</div>
   </div>
 </div>
 
@@ -281,10 +201,14 @@
     </div>
 
     <div class="child-block">
-      <div class="child-block-head">Enfant à charge</div>
+      <div class="child-block-head">
+        Enfant à charge
+        <span class="child-block-sub"> — À remplir si RED</span>
+      </div>
       <div class="row compact">
         <div class="label">Date de naissance</div>
         <div><input type="date" id="naissanceEnfant1" autocomplete="off"></div>
+        <div class="hint"></div>
       </div>
     </div>
 
@@ -309,27 +233,16 @@
 
     <div class="row">
       <div class="label">Âge du conjoint (année en cours)</div>
-      <div class="computed" id="ageConjoint">56 ans</div>
+      <div class="computed" id="ageConjoint">—</div>
       <div class="hint">Année en cours − année de naissance (différence de millésime).</div>
     </div>
     <div class="row">
       <div class="label">Statut conjoint (RCO &amp; RCS)</div>
-      <div id="statutConjoint"><span class="status-pill status-ok">CONFORME : Conjoint éligible (≤ 65 ans)</span></div>
+      <div id="statutConjoint"><span class="status-pill status-na">—</span></div>
       <div class="hint">Bloque les droits RCO et la RCS si le conjoint a strictement plus de 65 ans.</div>
     </div>
 
-    <div id="enfantsEligibilite"><div class="child-block">
-      <div class="child-block-head">Éligibilité de l'enfant</div>
-      <div class="row">
-        <div class="label">Âge de l'enfant au décès</div>
-        <div class="computed">6 ans</div>
-        <div class="hint">Calculé (date décès − date naissance).</div>
-      </div>
-      <div class="row">
-        <div class="label">Statut enfant (Rente Éducation)</div>
-        <div class="status-cell-1"><span class="status-pill status-ok">CONFORME : Enfant éligible (&lt; 25 ans)</span></div>
-        <div class="hint">Éligible si l'âge au décès est inférieur à 25 ans.</div>
-      </div></div></div>
+    <div id="enfantsEligibilite"></div>
   </div>
 
   <!-- SECTION 3 -->
@@ -340,36 +253,25 @@
     </div>
     <div class="row">
       <div class="label">Début de la MVP (conjoint + enfant)</div>
-      <div class="computed" id="debutMVP">10/10/2025</div>
+      <div class="computed" id="debutMVP">—</div>
       <div class="hint">Lendemain du décès.</div>
     </div>
     <div class="row">
       <div class="label">Fin de la MVP</div>
-      <div class="computed" id="finMVP">09/10/2026</div>
+      <div class="computed" id="finMVP">—</div>
       <div class="hint">12 mois après le début de la MVP, moins 1 jour.</div>
     </div>
     <div class="row">
       <div class="label">Début de la RCS (conjoint)</div>
-      <div class="computed" id="debutRCS">10/10/2026</div>
+      <div class="computed" id="debutRCS">—</div>
       <div class="hint">Lendemain de la fin de la MVP.</div>
     </div>
     <div class="row">
       <div class="label">Fin de la RCS (conjoint)</div>
-      <div class="computed" id="finRCS">30/06/2035</div>
+      <div class="computed" id="finRCS">—</div>
       <div class="hint">Dernier jour du trimestre civil où le conjoint atteint 65 ans.</div>
     </div>
-    <div id="enfantsPeriodes"><div class="child-block">
-      <div class="child-block-head">Rente Éducation</div>
-      <div class="row">
-        <div class="label">Début de la Rente Éducation</div>
-        <div class="computed">10/10/2026</div>
-        <div class="hint">= début de la RCS, si enfant éligible.</div>
-      </div>
-      <div class="row">
-        <div class="label">Fin de la Rente Éducation</div>
-        <div class="computed">30/06/2045</div>
-        <div class="hint">Dernier jour du trimestre civil où l'enfant atteint 25 ans.</div>
-      </div></div></div>
+    <div id="enfantsPeriodes"></div>
   </div>
 
   <!-- SECTION 4 -->
@@ -408,40 +310,41 @@
   <div class="section">
     <div class="section-head">
       <div class="section-num">5</div>
-      <div class="section-title">Liquidation des droits &amp; précomptes PRAGA</div>
+      <div class="section-title">Liquidation des droits &amp; cotisations PRAGA</div>
     </div>
     <div class="row">
       <div class="label">Nombre de points réversibles (Y)</div>
-      <div class="computed amount" id="pointsReversibles">21 780 points</div>
+      <div class="computed amount" id="pointsReversibles">—</div>
       <div class="hint">Points décédé × taux de réversion (66 %), avec un minimum de 18&nbsp;000 points réglementaire.</div>
     </div>
     <div class="row">
       <div class="label">Allocation RCO annuelle brute (Z)</div>
-      <div class="computed amount" id="allocationBrute">8 979,89 €</div>
+      <div class="computed amount" id="allocationBrute">—</div>
       <div class="hint">Points réversibles × valeur du point.</div>
     </div>
-    <div class="row">
-      <div class="label">Précompte PRAGA (RCS conjoint) — annuel</div>
-      <div class="computed amount" id="precompteRCS">—</div>
-      <div class="hint">RCO brute × taux de cotisation RCS.</div>
-    </div>
-    <div class="row">
-      <div class="label">Précompte PRAGA (RCS conjoint) — proratisé 1ère année civile</div>
-      <div class="computed amount" id="precompteRCSProrata">—</div>
-      <div class="hint">Précompte annuel proratisé du début de la RCS au 31/12 (ou fin de RCS si antérieure), au nombre de jours réel de l'année.</div>
-    </div>
-    <div id="enfantsLiquidation"><div class="child-block">
-      <div class="child-block-head">Cotisation Rente Éducation</div>
+
+    <!-- Sous-titre Cotisation Rente de conjoint survivant -->
+    <div class="child-block">
+      <div class="child-block-head">Cotisation Rente de conjoint survivant</div>
       <div class="row">
-        <div class="label">Cotisation PRAGA (Rente Éducation) — annuelle</div>
-        <div class="computed amount">148,99 €</div>
-        <div class="hint">Si éligible = PASS année en cours × taux RE, sinon 0 €.</div>
+        <div class="label">Cotisation PRAGA (RCS conjoint) — annuel</div>
+        <div class="computed amount" id="precompteRCS">—</div>
+        <div>
+          <div class="hint">RCO brute × taux de cotisation RCS.</div>
+          <div class="hint-neo">NEO : case « cotisation annuelle HT » + dans police montant TTC annuel et net annuel</div>
+        </div>
       </div>
       <div class="row">
-        <div class="label">Cotisation PRAGA (Rente Éducation) — proratisée 1ère année civile</div>
-        <div class="computed amount">33,88 €</div>
-        <div class="hint">Proratisée du début de la Rente Éducation au 31/12 (ou fin de rente si antérieure).</div>
-      </div></div></div>
+        <div class="label">Cotisation PRAGA (RCS conjoint) — proratisé 1ère année civile</div>
+        <div class="computed amount" id="precompteRCSProrata">—</div>
+        <div>
+          <div class="hint">Cotisation annuel proratisée du début de la RCS au 31/12 (ou fin de RCS si antérieure), au nombre de jours réel de l'année.</div>
+          <div class="hint-neo">NEO : case « montant annuel HT »</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="enfantsLiquidation"></div>
   </div>
 
   <!-- SECTION 6 -->
@@ -460,6 +363,18 @@
   </div>
 
 </div>
+
+<div class="actions-bar">
+  <button class="btn-pdf" onclick="window.print()">
+    <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Générer la fiche PDF
+  </button>
+</div>
+
 <div class="footer-note">Fiche de liquidation — usage interne. Vérifier toute alerte d'éligibilité avant liquidation définitive.</div>
 
 <script>
@@ -468,11 +383,10 @@ const $ = id => document.getElementById(id);
 document.getElementById('baremeToggle').addEventListener('click', () => {
   const body = $('baremeBody');
   const open = body.classList.toggle('open');
-  document.getElementById('baremeToggle').textContent =
+  $('baremeToggle').textContent =
     (open ? '▾' : '▸') + ' 4 — Barèmes réglementaires applicables (référentiel 2026) — cliquer pour modifier';
 });
 
-// ---------- Date helpers ----------
 function parseDate(str){
   if(!str) return null;
   const d = new Date(str + 'T00:00:00');
@@ -489,40 +403,37 @@ function fmtEUR(n){
 function addDays(d, n){ const r = new Date(d); r.setDate(r.getDate()+n); return r; }
 function addYears(d, n){ const r = new Date(d); r.setFullYear(r.getFullYear()+n); return r; }
 function endOfYear(y){ return new Date(y, 11, 31); }
-function daysInYear(y){ return ((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) ? 366 : 365; }
+function daysInYear(y){ return ((y%4===0&&y%100!==0)||y%400===0)?366:365; }
 function quarterEnd(d){
-  const q = Math.floor(d.getMonth() / 3);
-  const endMonth = q*3 + 2; // 0-indexed
-  return new Date(d.getFullYear(), endMonth + 1, 0); // last day of endMonth
+  const q = Math.floor(d.getMonth()/3);
+  const endMonth = q*3+2;
+  return new Date(d.getFullYear(), endMonth+1, 0);
 }
 function prorata(montantAnnuel, debut, finLimite){
   if(!debut) return 0;
   const finAnnee = endOfYear(debut.getFullYear());
   const fin = (finLimite && finLimite < finAnnee) ? finLimite : finAnnee;
-  const jours = Math.round((fin - debut) / 86400000) + 1;
+  const jours = Math.round((fin - debut)/86400000)+1;
   return montantAnnuel * jours / daysInYear(debut.getFullYear());
 }
-
 function statusPill(ok, okText, alertText){
   const span = document.createElement('span');
-  span.className = 'status-pill ' + (ok ? 'status-ok' : 'status-alert');
+  span.className = 'status-pill '+(ok?'status-ok':'status-alert');
   span.textContent = ok ? okText : alertText;
   return span;
 }
 
-// ---------- Main calculation ----------
 function calculate(){
   const dateDeces = parseDate($('dateDeces').value);
   const naissanceConjoint = parseDate($('naissanceConjoint').value);
   const nbPoints = parseFloat($('nbPoints').value) || 0;
+  const tauxReversion = (parseFloat($('tauxReversion').value)||0)/100;
+  const valeurPoint = parseFloat($('valeurPoint').value)||0;
+  const tauxRCS = (parseFloat($('tauxRCS').value)||0)/100;
+  const pass = parseFloat($('pass').value)||0;
+  const tauxRE = (parseFloat($('tauxRE').value)||0)/100;
 
-  const tauxReversion = (parseFloat($('tauxReversion').value) || 0) / 100;
-  const valeurPoint = parseFloat($('valeurPoint').value) || 0;
-  const tauxRCS = (parseFloat($('tauxRCS').value) || 0) / 100;
-  const pass = parseFloat($('pass').value) || 0;
-  const tauxRE = (parseFloat($('tauxRE').value) || 0) / 100;
-
-  // --- Section 2: conjoint ---
+  // Section 2 : conjoint
   const currentYear = new Date().getFullYear();
   let ageConjoint = null;
   if(naissanceConjoint){
@@ -539,12 +450,11 @@ function calculate(){
       'ALERTE : Non éligible (> 65 ans)'));
   } else {
     const s = document.createElement('span');
-    s.className = 'status-pill status-na';
-    s.textContent = '—';
+    s.className = 'status-pill status-na'; s.textContent = '—';
     $('statutConjoint').appendChild(s);
   }
 
-  // --- Section 3: MVP / RCS ---
+  // Section 3 : MVP / RCS
   let debutMVP=null, finMVP=null, debutRCS=null, finRCS=null;
   if(dateDeces){
     debutMVP = addDays(dateDeces, 1);
@@ -552,27 +462,26 @@ function calculate(){
     debutRCS = addDays(finMVP, 1);
   }
   if(naissanceConjoint){
-    const date65 = addYears(naissanceConjoint, 65);
-    finRCS = quarterEnd(date65);
+    finRCS = quarterEnd(addYears(naissanceConjoint, 65));
   }
   $('debutMVP').textContent = fmt(debutMVP);
   $('finMVP').textContent = fmt(finMVP);
   $('debutRCS').textContent = fmt(debutRCS);
   $('finRCS').textContent = fmt(finRCS);
 
-  // --- Enfant à charge ---
+  // Enfants
   const enfantsElig = $('enfantsEligibilite');
-  const enfantsPer = $('enfantsPeriodes');
-  const enfantsLiq = $('enfantsLiquidation');
+  const enfantsPer  = $('enfantsPeriodes');
+  const enfantsLiq  = $('enfantsLiquidation');
   enfantsElig.innerHTML = '';
-  enfantsPer.innerHTML = '';
-  enfantsLiq.innerHTML = '';
+  enfantsPer.innerHTML  = '';
+  enfantsLiq.innerHTML  = '';
 
   let totalCotisAnnuelles = 0;
 
-  for(let i=1;i<=1;i++){
+  for(let i=1; i<=1; i++){
     const naissance = parseDate($('naissanceEnfant'+i).value);
-    if(!naissance) continue; // pas d'enfant renseigné
+    if(!naissance) continue;
 
     let age = null, eligible = null;
     if(dateDeces){
@@ -580,7 +489,7 @@ function calculate(){
       eligible = age < 25;
     }
 
-    // Section 2 block
+    // Section 2 enfant
     const block = document.createElement('div');
     block.className = 'child-block';
     block.innerHTML = `
@@ -592,7 +501,7 @@ function calculate(){
       </div>
       <div class="row">
         <div class="label">Statut enfant (Rente Éducation)</div>
-        <div class="status-cell-1"></div>
+        <div class="status-cell-${i}"></div>
         <div class="hint">Éligible si l'âge au décès est inférieur à 25 ans.</div>
       </div>`;
     enfantsElig.appendChild(block);
@@ -603,17 +512,16 @@ function calculate(){
         'ALERTE : Non éligible (≥ 25 ans)'));
     } else {
       const s = document.createElement('span');
-      s.className = 'status-pill status-na';
-      s.textContent = '—';
+      s.className = 'status-pill status-na'; s.textContent = '—';
       statusCell.appendChild(s);
     }
 
-    // Section 3 block
+    // Section 3 enfant
+    // Fin RED = jour du 21e anniversaire de l'enfant (pas de trimestre civil)
     let debutRE = null, finRE = null;
     if(eligible && debutRCS){
       debutRE = debutRCS;
-      const date25 = addYears(naissance, 25);
-      finRE = quarterEnd(date25);
+      finRE = addYears(naissance, 21); // jour exact du 21e anniversaire
     }
     const perBlock = document.createElement('div');
     perBlock.className = 'child-block';
@@ -627,13 +535,13 @@ function calculate(){
       <div class="row">
         <div class="label">Fin de la Rente Éducation</div>
         <div class="computed">${fmt(finRE)}</div>
-        <div class="hint">Dernier jour du trimestre civil où l'enfant atteint 25 ans.</div>
+        <div class="hint">Jour du 21e anniversaire de l'enfant.</div>
       </div>`;
     enfantsPer.appendChild(perBlock);
 
-    // Section 5 block
+    // Section 5 enfant
     const cotisAnnuelle = eligible ? pass * tauxRE : 0;
-    const cotisProrata = eligible ? prorata(cotisAnnuelle, debutRE, finRE) : 0;
+    const cotisProrata  = eligible ? prorata(cotisAnnuelle, debutRE, finRE) : 0;
     totalCotisAnnuelles += cotisAnnuelle;
 
     const liqBlock = document.createElement('div');
@@ -653,47 +561,39 @@ function calculate(){
     enfantsLiq.appendChild(liqBlock);
   }
 
-  // --- Section 5: RCO / RCS conjoint ---
-  // N'afficher les calculs que si nbPoints est renseigné (> 0)
+  // Section 5 : RCO / RCS
   const pointsSaisis = $('nbPoints').value.trim() !== '' && nbPoints > 0;
-
-  if (!pointsSaisis) {
+  if(!pointsSaisis){
     $('pointsReversibles').textContent = '—';
-    $('allocationBrute').textContent = '—';
-    $('precompteRCS').textContent = '—';
+    $('allocationBrute').textContent   = '—';
+    $('precompteRCS').textContent      = '—';
     $('precompteRCSProrata').textContent = '—';
-    $('totalCotisations').textContent = '—';
+    $('totalCotisations').textContent  = '—';
     return;
   }
 
   const POINTS_MIN = 18000;
   const pointsReversiblesRaw = nbPoints * tauxReversion;
-  const pointsReversibles = Math.max(pointsReversiblesRaw, POINTS_MIN);
-  const minimumApplique = pointsReversiblesRaw < POINTS_MIN;
-  const allocationBrute = pointsReversibles * valeurPoint;
-  // Précompte = allocation RCO brute × taux RCS (utilise le montant réel avec minimum appliqué)
-  const precompteRCSAnnuel = allocationBrute * tauxRCS;
+  const pointsReversibles    = Math.max(pointsReversiblesRaw, POINTS_MIN);
+  const minimumApplique      = pointsReversiblesRaw < POINTS_MIN;
+  const allocationBrute      = pointsReversibles * valeurPoint;
+  const precompteRCSAnnuel   = allocationBrute * tauxRCS;
+
   if(minimumApplique){
     $('pointsReversibles').innerHTML = pointsReversibles.toLocaleString('fr-FR') + ' points'
       + ' <span style="font-size:11px;font-weight:600;background:#FFF8ED;border:1px solid #FBD38D;color:#7B4E12;padding:2px 7px;border-radius:4px;margin-left:6px;">Minimum réglementaire appliqué</span>';
   } else {
     $('pointsReversibles').textContent = pointsReversibles.toLocaleString('fr-FR') + ' points';
   }
-  $('allocationBrute').textContent = fmtEUR(allocationBrute);
-  $('precompteRCS').textContent = fmtEUR(precompteRCSAnnuel);
-  const precompteRCSProrata = !debutRCS ? '—' : fmtEUR(prorata(precompteRCSAnnuel, debutRCS, finRCS));
-  $('precompteRCSProrata').textContent = precompteRCSProrata;
+  $('allocationBrute').textContent     = fmtEUR(allocationBrute);
+  $('precompteRCS').textContent        = fmtEUR(precompteRCSAnnuel);
+  $('precompteRCSProrata').textContent = !debutRCS ? '—' : fmtEUR(prorata(precompteRCSAnnuel, debutRCS, finRCS));
 
-  // --- Section 6 ---
-  const total = precompteRCSAnnuel + totalCotisAnnuelles;
-  $('totalCotisations').textContent = fmtEUR(total);
+  // Section 6
+  $('totalCotisations').textContent = fmtEUR(precompteRCSAnnuel + totalCotisAnnuelles);
 }
 
 document.querySelectorAll('input').forEach(el => el.addEventListener('input', calculate));
-
 calculate();
 </script>
-
-
-
 </body></html>
