@@ -151,6 +151,48 @@
   .btn-pdf:hover{ background:var(--blue-dark); }
   .btn-pdf svg{ width:16px; height:16px; stroke:#FFFFFF; flex-shrink:0; }
 
+  [hidden]{ display:none !important; }
+
+  /* Choix du statut de l'assuré décédé */
+  .statut-choice{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px;
+    padding:18px 22px 22px;
+  }
+  .statut-option{ position:relative; cursor:pointer; }
+  .statut-option input{ position:absolute; opacity:0; pointer-events:none; }
+  .statut-card{
+    display:flex; align-items:center; gap:14px;
+    padding:16px 18px; border:2px solid var(--line); border-radius:10px;
+    background:#FFFFFF; transition:border-color .15s, background .15s;
+  }
+  .statut-option:hover .statut-card{ border-color:var(--blue-mid); }
+  .statut-radio{
+    width:20px; height:20px; border-radius:50%; flex-shrink:0;
+    border:2px solid var(--blue-light); background:#FFFFFF;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .statut-radio::after{
+    content:""; width:10px; height:10px; border-radius:50%;
+    background:var(--blue); transform:scale(0); transition:transform .15s;
+  }
+  .statut-title{ font-size:15px; font-weight:700; color:var(--navy); }
+  .statut-desc{ font-size:12px; color:var(--muted); margin-top:2px; }
+  .statut-option input:checked + .statut-card{
+    border-color:var(--blue); background:var(--blue-pale);
+  }
+  .statut-option input:checked + .statut-card .statut-radio{ border-color:var(--blue); }
+  .statut-option input:checked + .statut-card .statut-radio::after{ transform:scale(1); }
+  .statut-option input:focus-visible + .statut-card{
+    box-shadow:0 0 0 3px rgba(35,60,125,0.18);
+  }
+  .statut-placeholder{
+    padding:14px 22px 22px; font-size:13px; color:var(--muted);
+  }
+  .en-construction{
+    padding:28px 22px; text-align:center; color:var(--muted); font-size:13px;
+  }
+  .en-construction strong{ display:block; color:var(--navy); font-size:15px; margin-bottom:4px; }
+
   @media print {
     body{ background:white; padding:0; }
     .masthead{ padding:20px 28px 16px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -167,6 +209,7 @@
     .hint{ display:none; }
     .synth-box{ flex-direction:column; align-items:flex-start; }
     .synth-detail{ text-align:left; }
+    .statut-choice{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -182,11 +225,45 @@
 
 <div class="wrap">
 
+  <!-- SECTION 0 : STATUT DE L'ASSURÉ DÉCÉDÉ -->
+  <div class="section alt-border">
+    <div class="section-head">
+      <div class="section-num">0</div>
+      <div class="section-title">Statut de l'assuré décédé <span class="req" style="color:var(--gold);">*</span></div>
+    </div>
+    <div class="statut-choice" role="radiogroup" aria-label="Statut de l'assuré décédé">
+      <label class="statut-option">
+        <input type="radio" name="statutAssure" value="actif">
+        <span class="statut-card">
+          <span class="statut-radio"></span>
+          <span>
+            <span class="statut-title">Actif</span>
+            <span class="statut-desc" style="display:block;">Agent en activité au jour du décès</span>
+          </span>
+        </span>
+      </label>
+      <label class="statut-option">
+        <input type="radio" name="statutAssure" value="retraite">
+        <span class="statut-card">
+          <span class="statut-radio"></span>
+          <span>
+            <span class="statut-title">Retraité</span>
+            <span class="statut-desc" style="display:block;">Agent retraité au jour du décès</span>
+          </span>
+        </span>
+      </label>
+    </div>
+    <div class="statut-placeholder" id="statutPlaceholder">Sélectionnez le statut de l'assuré pour afficher la fiche correspondante.</div>
+  </div>
+
+  <!-- FICHE COMMUNE ACTIF / RETRAITÉ -->
+  <div id="parcoursFiche" hidden>
+
   <!-- SECTION 1 -->
   <div class="section">
     <div class="section-head">
       <div class="section-num">1</div>
-      <div class="section-title">Saisie du dossier</div>
+      <div class="section-title">Saisie du dossier <span id="statutLibelle" style="font-weight:400;color:var(--muted);"></span></div>
     </div>
 
     <div class="row">
@@ -200,23 +277,34 @@
       <div class="hint">Sert au calcul de l'âge de droit à la réversion RCO (limite 65 ans).</div>
     </div>
 
-    <div class="child-block">
-      <div class="child-block-head">
-        Enfant à charge
-        <span class="child-block-sub"> — À remplir si RED</span>
-      </div>
-      <div class="row compact">
-        <div class="label">Date de naissance</div>
-        <div><input type="date" id="naissanceEnfant1" autocomplete="off"></div>
-        <div class="hint"></div>
-      </div>
-    </div>
-
     <div class="row">
       <div class="label">Nombre de points RCO de l'agent décédé (X) <span class="req">*</span></div>
       <div><input type="number" id="nbPoints" step="1" min="0" autocomplete="off"></div>
-      <div class="hint">Total des points capitalisés par l'agent au jour du décès. Un minimum de 19&nbsp;800 points réversibles est garanti réglementairement.</div>
+      <div class="hint">Total des points capitalisés par l'agent au jour du décès. Un minimum de 19&nbsp;800 points réversibles est garanti réglementairement. Le nombre de points retenu est celui le plus favorable à l’adhérent. Les prorogations sont prises en compte, mais pas les minorations.</div>
     </div>
+    <div class="row">
+      <div class="label">Majoration 10&nbsp;%</div>
+      <div><input type="number" id="majoration10" step="1" min="0" placeholder="0" autocomplete="off"></div>
+      <div class="hint">Majoration de 10&nbsp;% s'il y a au moins 3 enfants.</div>
+    </div>
+    <div class="row">
+      <div class="label">Majoration 5&nbsp;%</div>
+      <div><input type="number" id="majoration5" step="1" min="0" placeholder="0" autocomplete="off"></div>
+      <div class="hint">Majoration de 5&nbsp;% s'il y a au moins un enfant handicapé.</div>
+    </div>
+    <div class="row">
+      <div class="label">Nombre de points RCO total</div>
+      <div class="computed amount" id="pointsTotal">—</div>
+      <div class="hint">Points RCO de l'agent + majoration 10&nbsp;% + majoration 5&nbsp;%.</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Nombre d'enfants à charge</div>
+      <div><input type="number" id="nbEnfants" step="1" min="0" max="10" value="0" autocomplete="off"></div>
+      <div class="hint">À renseigner si RED. Une date de naissance est demandée par enfant.</div>
+    </div>
+    <div id="enfantsSaisie"></div>
+
     <div class="row">
       <div class="label">Référence dossier interne</div>
       <div><input type="text" id="refDossier" placeholder="ex. 59015" autocomplete="off"></div>
@@ -249,25 +337,25 @@
   <div class="section">
     <div class="section-head">
       <div class="section-num">3</div>
-      <div class="section-title">Périodes de versement</div>
+      <div class="section-title">Dates des contrats santé</div>
     </div>
     <div class="row">
       <div class="label">Début de la MVP (conjoint + enfant)</div>
       <div class="computed" id="debutMVP">—</div>
-      <div class="hint">Lendemain du décès.</div>
+      <div class="hint" id="hintDebutMVP">Lendemain du décès.</div>
     </div>
     <div class="row">
       <div class="label">Fin de la MVP</div>
       <div class="computed" id="finMVP">—</div>
-      <div class="hint">12 mois après le début de la MVP, moins 1 jour.</div>
+      <div class="hint" id="hintFinMVP">12 mois après le début de la MVP, moins 1 jour.</div>
     </div>
     <div class="row">
-      <div class="label">Début de la RCS (conjoint)</div>
+      <div class="label">Début du contrat santé RCS</div>
       <div class="computed" id="debutRCS">—</div>
       <div class="hint">Lendemain de la fin de la MVP.</div>
     </div>
     <div class="row">
-      <div class="label">Fin de la RCS (conjoint)</div>
+      <div class="label">Fin du contrat santé RCS</div>
       <div class="computed" id="finRCS">—</div>
       <div class="hint">Dernier jour du trimestre civil où le conjoint atteint 65 ans.</div>
     </div>
@@ -315,7 +403,7 @@
     <div class="row">
       <div class="label">Nombre de points réversibles (Y)</div>
       <div class="computed amount" id="pointsReversibles">—</div>
-      <div class="hint">Points décédé × taux de réversion (66 %), avec un minimum de 19&nbsp;800 points réglementaire.</div>
+      <div class="hint">Nombre de points RCO total × taux de réversion (66 %), avec un minimum de 19&nbsp;800 points réglementaire.</div>
     </div>
     <div class="row">
       <div class="label">Allocation RCO annuelle brute (Z)</div>
@@ -358,13 +446,15 @@
         <div class="lbl">Total cotisations PRAGA / an</div>
         <div class="val" id="totalCotisations">—</div>
       </div>
-      <div class="synth-detail">Somme cumulée : cotisation RCS conjoint (annuelle) + cotisation Rente Éducation de l'enfant, si éligible (annuelle).</div>
+      <div class="synth-detail">Somme cumulée : cotisation RCS conjoint (annuelle) + cotisations Rente Éducation des enfants éligibles (annuelles).</div>
     </div>
   </div>
 
+  </div><!-- /parcoursFiche -->
+
 </div>
 
-<div class="actions-bar">
+<div class="actions-bar" id="actionsBar" hidden>
   <button class="btn-pdf" onclick="window.print()">
     <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -423,10 +513,48 @@ function statusPill(ok, okText, alertText){
   return span;
 }
 
+// Génère autant de champs "date de naissance" que d'enfants indiqués,
+// en conservant les dates déjà saisies
+const MAX_ENFANTS = 10;
+function getNbEnfants(){
+  let n = parseInt($('nbEnfants').value, 10);
+  if(isNaN(n) || n < 0) n = 0;
+  return Math.min(n, MAX_ENFANTS);
+}
+function renderEnfantsSaisie(){
+  const n = getNbEnfants();
+  const container = $('enfantsSaisie');
+  const saved = {};
+  container.querySelectorAll('input[type="date"]').forEach(inp => saved[inp.id] = inp.value);
+  container.innerHTML = '';
+  for(let i=1; i<=n; i++){
+    const block = document.createElement('div');
+    block.className = 'child-block';
+    block.innerHTML = `
+      <div class="child-block-head">
+        Enfant à charge ${n > 1 ? i : ''}
+        <span class="child-block-sub"> — À remplir si RED</span>
+      </div>
+      <div class="row compact">
+        <div class="label">Date de naissance</div>
+        <div><input type="date" id="naissanceEnfant${i}" autocomplete="off"></div>
+        <div class="hint"></div>
+      </div>`;
+    container.appendChild(block);
+    const inp = block.querySelector('input');
+    if(saved[inp.id]) inp.value = saved[inp.id];
+  }
+}
+
 function calculate(){
   const dateDeces = parseDate($('dateDeces').value);
   const naissanceConjoint = parseDate($('naissanceConjoint').value);
-  const nbPoints = parseFloat($('nbPoints').value) || 0;
+  const nbPointsAgent = parseFloat($('nbPoints').value) || 0;
+  const majoration10  = parseFloat($('majoration10').value) || 0;
+  const majoration5   = parseFloat($('majoration5').value) || 0;
+  const nbPoints = nbPointsAgent + majoration10 + majoration5;
+  $('pointsTotal').textContent = nbPointsAgent > 0
+    ? nbPoints.toLocaleString('fr-FR') + ' points' : '—';
   const tauxReversion = (parseFloat($('tauxReversion').value)||0)/100;
   const valeurPoint = parseFloat($('valeurPoint').value)||0;
   const tauxRCS = (parseFloat($('tauxRCS').value)||0)/100;
@@ -456,11 +584,24 @@ function calculate(){
 
   // Section 3 : MVP / RCS
   let debutMVP=null, finMVP=null, debutRCS=null, finRCS=null;
+  const estActif = getStatut() === 'actif';
   if(dateDeces){
-    debutMVP = addDays(dateDeces, 1);
-    finMVP = addDays(addYears(debutMVP, 1), -1);
+    if(estActif){
+      // Actif : MVP sur l'année civile qui suit le décès
+      const anneeSuivante = dateDeces.getFullYear() + 1;
+      debutMVP = new Date(anneeSuivante, 0, 1);
+      finMVP   = new Date(anneeSuivante, 11, 31);
+    } else {
+      // Retraité : MVP de 12 mois à compter du lendemain du décès
+      debutMVP = addDays(dateDeces, 1);
+      finMVP   = addDays(addYears(debutMVP, 1), -1);
+    }
     debutRCS = addDays(finMVP, 1);
   }
+  $('hintDebutMVP').textContent = estActif
+    ? "1er janvier de l'année qui suit le décès." : 'Lendemain du décès.';
+  $('hintFinMVP').textContent = estActif
+    ? "31 décembre de l'année qui suit le décès." : '12 mois après le début de la MVP, moins 1 jour.';
   if(naissanceConjoint){
     finRCS = quarterEnd(addYears(naissanceConjoint, 65));
   }
@@ -479,9 +620,12 @@ function calculate(){
 
   let totalCotisAnnuelles = 0;
 
-  for(let i=1; i<=1; i++){
-    const naissance = parseDate($('naissanceEnfant'+i).value);
+  const nbEnfants = getNbEnfants();
+  for(let i=1; i<=nbEnfants; i++){
+    const champ = $('naissanceEnfant'+i);
+    const naissance = champ ? parseDate(champ.value) : null;
     if(!naissance) continue;
+    const suffixe = nbEnfants > 1 ? ' ' + i : '';
 
     let age = null, eligible = null;
     if(dateDeces){
@@ -493,7 +637,7 @@ function calculate(){
     const block = document.createElement('div');
     block.className = 'child-block';
     block.innerHTML = `
-      <div class="child-block-head">Éligibilité de l'enfant</div>
+      <div class="child-block-head">Éligibilité de l'enfant${suffixe}</div>
       <div class="row">
         <div class="label">Âge de l'enfant au décès</div>
         <div class="computed">${age !== null ? age + ' ans' : '—'}</div>
@@ -526,14 +670,14 @@ function calculate(){
     const perBlock = document.createElement('div');
     perBlock.className = 'child-block';
     perBlock.innerHTML = `
-      <div class="child-block-head">Rente Éducation</div>
+      <div class="child-block-head">Rente Éducation${suffixe ? ' — Enfant' + suffixe : ''}</div>
       <div class="row">
-        <div class="label">Début de la Rente Éducation</div>
+        <div class="label">Début du contrat santé RED</div>
         <div class="computed">${fmt(debutRE)}</div>
         <div class="hint">= début de la RCS, si enfant éligible.</div>
       </div>
       <div class="row">
-        <div class="label">Fin de la Rente Éducation</div>
+        <div class="label">Fin du contrat santé RED</div>
         <div class="computed">${fmt(finRE)}</div>
         <div class="hint">Jour du 21e anniversaire de l'enfant.</div>
       </div>`;
@@ -547,7 +691,7 @@ function calculate(){
     const liqBlock = document.createElement('div');
     liqBlock.className = 'child-block';
     liqBlock.innerHTML = `
-      <div class="child-block-head">Cotisation Rente Éducation</div>
+      <div class="child-block-head">Cotisation Rente Éducation${suffixe ? ' — Enfant' + suffixe : ''}</div>
       <div class="row">
         <div class="label">Cotisation PRAGA (Rente Éducation) — annuelle</div>
         <div class="computed amount">${fmtEUR(cotisAnnuelle)}</div>
@@ -593,7 +737,33 @@ function calculate(){
   $('totalCotisations').textContent = fmtEUR(precompteRCSAnnuel + totalCotisAnnuelles);
 }
 
-document.querySelectorAll('input').forEach(el => el.addEventListener('input', calculate));
+// Affichage du parcours selon le statut de l'assuré décédé
+function updateParcours(){
+  const choix = document.querySelector('input[name="statutAssure"]:checked');
+  const statut = choix ? choix.value : null;
+  $('parcoursFiche').hidden     = statut === null;
+  $('statutPlaceholder').hidden = statut !== null;
+  $('actionsBar').hidden        = statut === null;
+  $('statutLibelle').textContent = statut === 'actif' ? '— Assuré actif'
+                                 : statut === 'retraite' ? '— Assuré retraité' : '';
+  calculate();
+}
+// Statut courant, utilisé pour les règles de dates propres à chaque parcours (section 3)
+function getStatut(){
+  const c = document.querySelector('input[name="statutAssure"]:checked');
+  return c ? c.value : null;
+}
+document.querySelectorAll('input[name="statutAssure"]').forEach(el =>
+  el.addEventListener('change', updateParcours));
+
+// Délégation : couvre aussi les champs enfants créés dynamiquement
+document.addEventListener('input', e => {
+  if(e.target.name === 'statutAssure') return;
+  if(e.target.id === 'nbEnfants') renderEnfantsSaisie();
+  calculate();
+});
+renderEnfantsSaisie();
+updateParcours();
 calculate();
 </script>
 </body></html>
