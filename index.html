@@ -215,7 +215,7 @@
     <div class="row">
       <div class="label">Nombre de points RCO de l'agent décédé (X) <span class="req">*</span></div>
       <div><input type="number" id="nbPoints" step="1" min="0" autocomplete="off"></div>
-      <div class="hint">Total des points capitalisés par l'agent au jour du décès. Un minimum de 18&nbsp;000 points réversibles est garanti réglementairement.</div>
+      <div class="hint">Total des points capitalisés par l'agent au jour du décès. Un minimum de 19&nbsp;800 points réversibles est garanti réglementairement.</div>
     </div>
     <div class="row">
       <div class="label">Référence dossier interne</div>
@@ -315,7 +315,7 @@
     <div class="row">
       <div class="label">Nombre de points réversibles (Y)</div>
       <div class="computed amount" id="pointsReversibles">—</div>
-      <div class="hint">Points décédé × taux de réversion (66 %), avec un minimum de 18&nbsp;000 points réglementaire.</div>
+      <div class="hint">Points décédé × taux de réversion (66 %), avec un minimum de 19&nbsp;800 points réglementaire.</div>
     </div>
     <div class="row">
       <div class="label">Allocation RCO annuelle brute (Z)</div>
@@ -572,7 +572,7 @@ function calculate(){
     return;
   }
 
-  const POINTS_MIN = 18000;
+  const POINTS_MIN = 19800;
   const pointsReversiblesRaw = nbPoints * tauxReversion;
   const pointsReversibles    = Math.max(pointsReversiblesRaw, POINTS_MIN);
   const minimumApplique      = pointsReversiblesRaw < POINTS_MIN;
